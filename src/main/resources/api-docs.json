@@ -1,0 +1,135 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Swagger API",
+    "description": "API desenvolvida ser apresentada na COP",
+    "termsOfService": "",
+    "contact": {
+      "name": "DB",
+      "url": "https://db.tec.br/",
+      "email": "info@dbserver.com.br"
+    },
+    "license": {
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/pessoa": {
+      "get": {
+        "tags": [
+          "controller"
+        ],
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pessoa"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "controller"
+        ],
+        "operationId": "post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "parameters": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pessoa"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pessoa/{id}": {
+      "delete": {
+        "tags": [
+          "controller"
+        ],
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pessoa": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "nome": {
+            "type": "string",
+            "example": "João"
+          },
+          "idade": {
+            "type": "integer",
+            "format": "int32",
+            "example": 19
+          },
+          "cpf": {
+            "type": "string",
+            "example": "860.111.980-82"
+          }
+        }
+      }
+    }
+  }
+}
