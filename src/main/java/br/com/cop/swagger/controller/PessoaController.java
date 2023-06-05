@@ -29,8 +29,8 @@ public class PessoaController {
         return new ResponseEntity<>(pessoaService.buscarTodos(), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deletar(@PathVariable Long id){
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<String> deletar(@PathVariable Long id){
+        return new ResponseEntity(pessoaService.deletar(id),HttpStatus.OK);
     }
 
 }

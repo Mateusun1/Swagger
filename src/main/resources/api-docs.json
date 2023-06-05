@@ -25,6 +25,8 @@
         "tags": [
           "controller"
         ],
+        "summary": "Buscar uma lista de pessoas",
+        "description": "Buscar uma lista de pessoas",
         "operationId": "getAll",
         "responses": {
           "200": {
@@ -46,26 +48,72 @@
         "tags": [
           "controller"
         ],
+        "summary": "Cadastrar uma Pessoa",
+        "description": "Deve cadastrar uma pessoa",
         "operationId": "post",
         "requestBody": {
           "content": {
             "application/json": {
-              "parameters": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pessoa"
-                }
+              "schema": {
+                "$ref": "#/components/schemas/Pessoa"
+              },
+              "example": {
+                "id": 1,
+                "nome": "João",
+                "idade": 19,
+                "cpf": "860.111.980-82"
               }
             }
           },
           "required": true
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "CREATED",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/Pessoa"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BAD REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Erro ao cadastrar uma pessoa, verifique se o nome,idade e cpf estão preenchidos de forma correta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL SERVER ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Leia a documentação"
+                    }
+                  }
                 }
               }
             }
@@ -78,6 +126,8 @@
         "tags": [
           "controller"
         ],
+        "summary": "Deletar uma Pessoa",
+        "description": "Deve deletar uma pessoa",
         "operationId": "delete",
         "parameters": [
           {
@@ -94,9 +144,10 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                      "example": "Deletado com sucesso!"
                 }
               }
             }
@@ -128,7 +179,12 @@
             "type": "string",
             "example": "860.111.980-82"
           }
-        }
+        },
+        "required": [
+          "nome",
+          "idade",
+          "cpf"
+        ]
       }
     }
   }

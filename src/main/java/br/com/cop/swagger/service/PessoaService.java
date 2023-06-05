@@ -28,4 +28,9 @@ public class PessoaService {
     public List<Pessoa> buscarTodos() {
         return pessoaRepository.findAll();
     }
+
+    public String deletar(Long id) {
+        pessoaRepository.deleteById(id);
+        return "Deletado com sucesso!";
+    }
 }
