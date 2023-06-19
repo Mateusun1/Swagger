@@ -1,6 +1,6 @@
 package br.com.cop.swagger.service;
 
-import br.com.cop.swagger.dto.UsuarioForm;
+import br.com.cop.swagger.dto.request.UsuarioRequest;
 import br.com.cop.swagger.model.Perfil;
 import br.com.cop.swagger.model.Usuario;
 import br.com.cop.swagger.repository.PerfilRepository;
@@ -28,10 +28,10 @@ public class UsuarioService implements UserDetailsService {
         this.modelMapper = modelMapper;
     }
 
-    public Usuario cadastrar(UsuarioForm form) {
+    public Usuario cadastrar(UsuarioRequest form) {
         Usuario usuarioConvertido = form.converter();
         Usuario usuario = modelMapper.map(usuarioConvertido, Usuario.class);
-        Perfil perfil = perfilRepository.findByNome("ROLE_USUARIO");
+        Perfil perfil = perfilRepository.findByNome("ROLE_USER");
         usuario.addRole(perfil);
         usuarioRepository.save(usuario);
         return usuario;

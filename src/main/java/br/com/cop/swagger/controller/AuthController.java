@@ -1,7 +1,7 @@
 package br.com.cop.swagger.controller;
 
-import br.com.cop.swagger.dto.LoginForm;
-import br.com.cop.swagger.dto.TokenDto;
+import br.com.cop.swagger.dto.request.LoginRequest;
+import br.com.cop.swagger.dto.response.TokenResponse;
 import br.com.cop.swagger.service.TokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,12 +27,12 @@ public class AuthController {
     }
 
     @PostMapping
-    public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form){
+    public ResponseEntity<TokenResponse> autenticar(@RequestBody @Valid LoginRequest form){
         UsernamePasswordAuthenticationToken login = form.converter();
         try{
             Authentication auth = authManager.authenticate(login);
             String token = tokenService.gerarToken(auth);
-            return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+            return ResponseEntity.ok(new TokenResponse(token, "Bearer"));
         }catch (AuthenticationException e){
             return ResponseEntity.badRequest().build();
         }

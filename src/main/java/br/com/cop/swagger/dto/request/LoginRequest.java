@@ -1,4 +1,4 @@
-package br.com.cop.swagger.dto;
+package br.com.cop.swagger.dto.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,7 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 @Data
 @NoArgsConstructor
-public class LoginForm {
+public class LoginRequest {
 
     private String email;
     private String senha;

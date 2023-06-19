@@ -1,4 +1,4 @@
-package br.com.cop.swagger.dto;
+package br.com.cop.swagger.dto.request;
 
 import br.com.cop.swagger.model.Usuario;
 import br.com.cop.swagger.repository.UsuarioRepository;
@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class UsuarioForm {
+public class UsuarioRequest {
     @NotBlank
     private String nome;
     @NotBlank

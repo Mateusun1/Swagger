@@ -4,6 +4,7 @@ import br.com.cop.swagger.config.authentication.AutenticacaoViaTokenFilter;
 import br.com.cop.swagger.repository.UsuarioRepository;
 import br.com.cop.swagger.service.TokenService;
 import br.com.cop.swagger.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 public class SpringConfig extends WebSecurityConfigurerAdapter {
-    private static final String[] AUTH_WHITELIST = {
+    private static final String[] AUTH_WHITELIST_SWAGGER = {
             "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
@@ -29,11 +30,12 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
             "/v3/api-docs/**",
             "/swagger-ui/**"
     };
+    private final String ADMIN = "ADMIN";
+    private final String USER = "USER";
     private final UsuarioService usuarioService;
-
     private final TokenService tokenService;
     private final UsuarioRepository usuarioRepository;
-
+    @Autowired
     public SpringConfig(UsuarioService usuarioService, TokenService tokenService, UsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
         this.tokenService = tokenService;
@@ -50,11 +52,12 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers(AUTH_WHITELIST_SWAGGER).permitAll()
                 .antMatchers("/auth").permitAll()
-                .antMatchers(HttpMethod.POST,"/usuario").permitAll()
-                .antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers(HttpMethod.GET,"/usuario").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST,"/perfil").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/conta").permitAll()
+                .antMatchers("/usuario").hasRole(ADMIN)
+                .antMatchers(HttpMethod.GET,"/conta").hasRole(USER)
+                .antMatchers("/perfil").hasRole(ADMIN)
                 .anyRequest().authenticated()
                 .and().csrf().disable().authorizeRequests()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
