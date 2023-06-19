@@ -20,98 +20,53 @@
     }
   ],
   "paths": {
-    "/pessoa": {
-      "get": {
-        "tags": [
-          "controller"
-        ],
-        "summary": "Buscar uma lista de pessoas",
-        "description": "Buscar uma lista de pessoas",
-        "operationId": "getAll",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Pessoa"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
+    "/auth": {
       "post": {
         "tags": [
-          "controller"
+          "Login"
         ],
-        "summary": "Cadastrar uma Pessoa",
-        "description": "Deve cadastrar uma pessoa",
-        "operationId": "post",
+        "summary": "Realizar Login de Usuário",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Pessoa"
-              },
               "example": {
-                "id": 1,
-                "nome": "João",
-                "idade": 19,
-                "cpf": "860.111.980-82"
+                "email": "email@admin.com",
+                "senha": "1024"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
-          "201": {
-            "description": "CREATED",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pessoa"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "BAD REQUEST",
+          "200": {
+            "description": "Retorna um Token de acesso",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "integer",
-                      "example": 400
-                    },
-                    "message": {
+                    "token": {
                       "type": "string",
-                      "example": "Erro ao cadastrar uma pessoa, verifique se o nome,idade e cpf estão preenchidos de forma correta"
+                      "example": "Token de acesso"
+                    },
+                    "tipo": {
+                      "type": "string",
+                      "example": "Bearer"
                     }
                   }
                 }
               }
             }
           },
-          "500": {
-            "description": "INTERNAL SERVER ERROR",
+          "400": {
+            "description": "Retorna um erro caso os dados estejam incorretos",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "integer",
-                      "example": 500
-                    },
                     "message": {
                       "type": "string",
-                      "example": "Leia a documentação"
+                      "example": "Dados incorretos"
                     }
                   }
                 }
@@ -121,33 +76,61 @@
         }
       }
     },
-    "/pessoa/{id}": {
-      "delete": {
+    "/usuario": {
+      "post": {
         "tags": [
-          "controller"
+          "Usuário"
         ],
-        "summary": "Deletar uma Pessoa",
-        "description": "Deve deletar uma pessoa",
-        "operationId": "delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
+        "summary": "Cadastrar um Usuário",
+        "operationId": "post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "nome": "João",
+                "email": "emailexemplo@email.com",
+                "senha": "123456"
+              }
             }
-          }
+          },
+          "required": true
+        }
+      },
+      "get": {
+        "tags": [
+          "Usuário"
         ],
+        "summary": "Busca todos os Usuários",
+        "operationId": "get",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Retorna uma lista de Usuários",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                      "example": "Deletado com sucesso!"
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "type": "object",
+                      "$ref": "schemas/UsuarioSchema.json/exampleUsuario"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Retorna um erro caso os dados estejam incorretos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Dados incorretos"
+                    }
+                  }
                 }
               }
             }
@@ -185,6 +168,13 @@
           "idade",
           "cpf"
         ]
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "HTTP",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
