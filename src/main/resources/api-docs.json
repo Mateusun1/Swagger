@@ -108,12 +108,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "example": {
-                      "type": "object",
-                      "$ref": "schemas/UsuarioSchema.json/exampleUsuario"
-                    }
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
                   }
                 }
               }
@@ -141,7 +138,7 @@
   },
   "components": {
     "schemas": {
-      "Pessoa": {
+      "Usuario": {
         "type": "object",
         "properties": {
           "id": {
@@ -153,28 +150,15 @@
             "type": "string",
             "example": "João"
           },
-          "idade": {
-            "type": "integer",
-            "format": "int32",
-            "example": 19
-          },
-          "cpf": {
+          "email": {
             "type": "string",
-            "example": "860.111.980-82"
+            "example": "emailfalso@email.com"
+          },
+          "senha": {
+            "type": "string",
+            "example": "$2a$12$nxpux28OldipXTmLKBIbyeQCW6qLOQPaZDvLIITPeiZwNIFXwfntK"
           }
-        },
-        "required": [
-          "nome",
-          "idade",
-          "cpf"
-        ]
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "HTTP",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+        }
       }
     }
   }
