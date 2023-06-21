@@ -6,6 +6,6 @@ RUN gradle clean build
 
 # Estágio de produção
 FROM openjdk:17-jdk-slim
-COPY --from=build /home/app/backend/build/libs/Swagger-1.jar /app/swagger.jar
+COPY --from=build home/app/build/libs/*.jar ./swagger.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/swagger.jar"]
+ENTRYPOINT ["java", "-jar", "swagger.jar"]
