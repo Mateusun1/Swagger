@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Conta Bancaria API",
-    "description": "A API de Conta Bancária permite interações com uma conta bancária, oferecendo uma variedade de endpoints para consultas e operações financeiras. Esta API foi desenvolvida para ser apresentada na COP da Sicredi. Para saber mais sobre a API, acesse: [SwaggerAPI](https://dev.azure.com/EstudosMatheus/_git/Swagger)",
+    "description": "A API de Conta Bancária permite interações com uma conta bancária, oferecendo uma variedade de endpoints para consultas e operações financeiras. Esta API foi desenvolvida para ser apresentada na COP da Sicredi. Para saber mais sobre a API, acesse: [API apresentada na COP](https://github.com/Mateusun1/Swagger). Ficou com alguma duvida? Acesse a documentação do Swagger pra saber mais sobre: [Documentação do Swagger](https://swagger.io/docs/)",
     "termsOfService": "",
     "contact": {
       "name": "DB",
