@@ -30,6 +30,11 @@ public class ContaController {
     @GetMapping("/{id}")
     @SecurityRequirement(name = "Bearer Authentication")
     public ResponseEntity<SaldoResponse> buscarSaldo(@PathVariable Long id){
-        return new ResponseEntity<>(contaService.buscarSaldo(id), HttpStatus.CREATED);
+        return new ResponseEntity<>(contaService.buscarSaldo(id), HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "Bearer Authentication")
+    public ResponseEntity<String> deletarUsuario(@PathVariable Long id){
+        return new ResponseEntity<>(contaService.deletar(id), HttpStatus.OK);
     }
 }
