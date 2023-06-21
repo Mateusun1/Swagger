@@ -5,7 +5,7 @@ COPY . .
 RUN gradle clean build
 
 # Estágio de produção
-FROM adoptopenjdk:17-jre-hotspot
+FROM openjdk:17-jdk-slim
 COPY --from=build /home/app/backend/build/libs/Swagger-1.jar /usr/local/lib/swagger.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/usr/local/lib/swagger.jar"]
